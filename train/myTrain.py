@@ -81,9 +81,7 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
         overall_loss = total_loss / total_length
         overall_accuracy = total_accuracy / total_length * 100
 
-        the_tqdm.set_description(
-            f"Loss: {loss.item():.3f}, Acc: {overall_accuracy:.2f}"
-        )
+        the_tqdm.set_description(f"Loss: {loss.item():.3f}, Acc: {overall_accuracy:.2f}")
 
     return overall_loss, overall_accuracy
 
