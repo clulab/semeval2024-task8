@@ -6,6 +6,6 @@ learning_rate: 5e-05
 batch_size: 16
 patience: 3
 ------------------------------------
-current time: Fri Jan 26 12:29:22 2024
+current time: Fri Jan 26 12:38:01 2024
 Epoch 1 started...
 Current patience: is 0.
