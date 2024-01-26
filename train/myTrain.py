@@ -343,7 +343,8 @@ if __name__ == "__main__":
                 else:
                     ids = None    
                 errors = open("errors.txt", "a")
-                try:
+                # try:
+                if True:
                     experiment(
                         device=device_,
                         model_name=model_,
@@ -363,7 +364,7 @@ if __name__ == "__main__":
                     os.system("git commit -m " + notif)
                     os.system("git push")
                     errors.close()
-
+                '''
                 except Exception as e:
                     notif = (
                         f"Training of {model_} with {lr} and {i}k training data is finished with error!"
@@ -376,3 +377,4 @@ if __name__ == "__main__":
                     errors.write(notif + "\n" + str(e) + "\n")
                     errors.write("--------------------------------------------------\n")
                     errors.close()
+                '''
