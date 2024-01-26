@@ -74,7 +74,7 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
             preds = [idx for idx in predicted_label_indices.tolist()]
 
         for i in range(len(preds)):
-            if preds[i].lower().strip() == label[i].lower().strip():
+            if preds[i] == label[i]:
                 total_accuracy += 1
 
         overall_loss = total_loss / total_length
