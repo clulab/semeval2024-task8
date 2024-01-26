@@ -11,7 +11,7 @@ class RoBERTa_negation(nn.Module):
         from transformers import RobertaForSequenceClassification, RobertaTokenizerFast
 
         self.model = RobertaForSequenceClassification.from_pretrained(
-            "roberta-large", num_labels=3
+            "roberta-large", num_labels=6
         ).to(device)
         self.tokenizer = RobertaTokenizerFast.from_pretrained("roberta-large")
         # set the device
@@ -38,7 +38,7 @@ class DeBERTa_negation(nn.Module):
         from transformers import DebertaV2ForSequenceClassification,  DebertaV2TokenizerFast
 
         self.model = DebertaV2ForSequenceClassification.from_pretrained(
-            "microsoft/deberta-v3-large", num_labels=3
+            "microsoft/deberta-v3-large", num_labels=6
         ).to(device)
         self.tokenizer = DebertaV2TokenizerFast.from_pretrained("microsoft/deberta-v3-large")
         # set the device

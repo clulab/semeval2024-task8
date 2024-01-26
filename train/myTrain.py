@@ -330,8 +330,8 @@ def test_mapper(example, preds):
 
 
 if __name__ == "__main__":
-    # device_ = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device_ = torch.device("cpu")
+    device_ = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device_ = torch.device("cpu")
     list_experiment_ids = []
     
     for model_ in ['deberta', 'roberta']:
