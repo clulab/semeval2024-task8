@@ -336,7 +336,7 @@ if __name__ == "__main__":
     list_experiment_ids = []
     
     for model_ in ['deberta', 'roberta']:
-        for lr in ['5e-5', '1e-5', '2e-5', '3e-5']:
+        for lr in [5e-5, 1e-5, 2e-5, 3e-5]:
             for i in [None, 6, 5, 4, 3, 2, 1]:
                 if i != None:
                     with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
@@ -344,7 +344,7 @@ if __name__ == "__main__":
                 else:
                     ids = None    
                 errors = open("errors.txt", "a")
-                try:
+                if True: # try:
                     experiment(
                         device=device_,
                         model_name=model_,
@@ -364,6 +364,7 @@ if __name__ == "__main__":
                     os.system("git commit -m " + notif)
                     os.system("git push")
                     errors.close()
+                '''
                 except Exception as e:
                     notif = (
                         f"Training of {model_} with {lr} and {i}k training data is finished with error!"
@@ -376,3 +377,4 @@ if __name__ == "__main__":
                     errors.write(notif + "\n" + str(e) + "\n")
                     errors.write("--------------------------------------------------\n")
                     errors.close()
+                '''
