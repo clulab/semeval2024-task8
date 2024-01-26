@@ -193,7 +193,7 @@ def experiment(
 
     # load the data
     train_loader, val_loader, test_loader = prepare_dataset(
-        model_name=model_name, setting=setting, batch_size1=batch_size_, tokenizer = tokenizer, ids=ids_set
+        model_name=model_name, setting=setting, batch_size1=batch_size_, tokenizer = tokenizer, ids_set=ids_set
     )
     ''''''
     # create the files
