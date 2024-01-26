@@ -338,9 +338,11 @@ if __name__ == "__main__":
     for model_ in ['deberta', 'roberta']:
         for lr in ['5e-5', '1e-5', '2e-5', '3e-5']:
             for i in [None, 6, 5, 4, 3, 2, 1]:
-                with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
-                    ids = pickle.load(f)
-    
+                if i != None:
+                    with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
+                        ids = pickle.load(f)
+                else:
+                    ids = None    
                 errors = open("errors.txt", "a")
                 try:
                     experiment(
