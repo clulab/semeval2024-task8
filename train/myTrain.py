@@ -348,7 +348,7 @@ if __name__ == "__main__":
                         device=device_,
                         model_name=model_,
                         setting=str(model_) + "_" + str(lr) + "_" + str(lr) + "_" + str(i),
-                        batch_size_=16, 
+                        batch_size_=8, 
                         experiment_id=str(model_) + "_" + str(lr) + "_" + str(lr) + "_" + str(i),
                         learning_rate=lr,
                         ids_set=ids
