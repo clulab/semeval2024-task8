@@ -210,14 +210,14 @@ def experiment(
         os.makedirs(model_folder)
     if not os.path.exists(train_folder):
         os.makedirs(train_folder)
-
+    '''
     # create a snapshot of the code
     if not os.path.exists(code_folder):
         shutil.copytree("code", code_folder)
     else:
         shutil.rmtree(code_folder)
         shutil.copytree("code", code_folder)
-
+    '''
     save_best_loss = model_folder + "best_loss.pt"
     save_current = model_folder + "current.pt"
 
