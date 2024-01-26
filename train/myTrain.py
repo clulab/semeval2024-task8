@@ -37,13 +37,14 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
     )
     for index, batch in the_tqdm:
         # get the inputs
-        input_input_ids = batch["input input_ids"].to(device)
-        input_attention_mask = batch["input attention_mask"].to(device)
-        label_input_ids = batch["label input_ids"].to(device)
+        input_input_ids = batch["input_ids"].to(device)
+        input_attention_mask = batch["attention_mask"].to(device)
+        label_input_ids = torch.tensor(batch["label"]).to(device)
+        label_input_ids = batch["label"].to(device)
         # label_attention_mask = batch["label attention_mask"].to(device)
         label = batch["label"]  # .to(device)
-        label_id = batch["label id"].to(device)
-        label_id[label_id == 3] = 2
+        # label_id = batch["label id"].to(device)
+        # label_id[label_id == 3] = 2
         id_ = batch["id"].to(device)
         assert (not torch.isnan(input_input_ids).any())
         # forward + backward + optimize
@@ -53,7 +54,7 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
                     input_ids=input_input_ids,
                     attention_mask=input_attention_mask,
                     label_input_ids=label_input_ids,
-                    label_ids=label_id,
+                    label_ids=label,
                 ) # .to(device)
                 loss = output.loss
 

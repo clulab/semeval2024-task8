@@ -1,0 +1,11 @@
+experiment_id: deberta_5e-05_5e-05_None
+model_name: deberta
+setting: deberta_5e-05_5e-05_None
+------------------------------------
+learning_rate: 5e-05
+batch_size: 16
+patience: 3
+------------------------------------
+current time: Fri Jan 26 12:29:22 2024
+Epoch 1 started...
+Current patience: is 0.
