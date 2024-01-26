@@ -180,7 +180,7 @@ def experiment(
     epoch_num = 0
     best_val_acc = 0
     best_val_loss = 100000
-    patience = 3
+    patience = 2
     check_stopping = 0
 
     model = Model_QA_negation(device)
