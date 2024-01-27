@@ -273,17 +273,6 @@ def experiment(
             else:
                 check_stopping += 1
 
-            if epoch_num == epochs_:
-                test_loss, test_acc, preds = evaluate(
-                    test_loader, model, model_name, device
-                )
-                training_info.write(
-                    f"This is the number of epochs CondaQA was trained for: {epoch_num}\n"
-                )
-                training_info.write(
-                    f"Test Loss: {test_loss:.2f}, Test Acc: {test_acc:.1f}\n"
-                )
-                process_test_preds(preds, data_folder, model_name, setting, best=False)
             training_info.write(f"------------------------------------\n")
             if (check_stopping >= patience and epoch_num >= epochs_):
                 break
@@ -297,12 +286,12 @@ def experiment(
     model.load_state_dict(load_dict['model_state_dict'])
     optimizer.load_state_dict(load_dict['optimizer_state_dict'])
     print(f"Model loaded from the best loss checkpoint.")
-    test_loss, test_acc, preds = evaluate(test_loader, model, model_name, device)
+    # test_loss, test_acc, preds = evaluate(test_loader, model, model_name, device)
     training_info.write(f"Training stopped at epoch {epoch_num}.\n")
     training_info.write(f"Best Val Loss: {best_val_loss:.2f}\n")
-    training_info.write(f"Test Loss: {test_loss:.2f}, Test Acc: {test_acc:.1f}\n")
+    # training_info.write(f"Test Loss: {test_loss:.2f}, Test Acc: {test_acc:.1f}\n")
     training_info.close()
-    process_test_preds(preds, data_folder, model_name, setting, best=True)
+    # process_test_preds(preds, data_folder, model_name, setting, best=True)
     print("Training finished Successfully.")
 
 def process_test_preds(preds, data_folder, model_name, setting, best=True):
@@ -336,8 +325,8 @@ if __name__ == "__main__":
     list_experiment_ids = []
     
     for model_ in ['deberta', 'roberta']:
-        for lr in [5e-5, 1e-5, 2e-5, 3e-5]:
-            for i in [None, 6, 5, 4, 3, 2, 1]:
+        for i in [None, 4, 2, 5, 6, 3, 1]:
+            for lr in [1e-5, 5e-5, 2e-5, 3e-5]:
                 if i != None:
                     with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
                         ids = pickle.load(f)
