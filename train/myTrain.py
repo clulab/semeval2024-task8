@@ -100,18 +100,19 @@ def evaluate(data_loader, model, model_name, device):
             # get the inputs
             input_input_ids = batch["input input_ids"].to(device)
             input_attention_mask = batch["input attention_mask"].to(device)
-            label_input_ids = batch["label input_ids"].to(device)
+            label = batch["label"].to(device)
             # label_attention_mask = batch["label attention_mask"].to(device)
-            label = batch["label"]  # .to(device)
-            label_id = batch["label id"].to(device)
-            label_id[label_id == 3] = 2
+            # label = batch["label"]  # .to(device)
+            label_id = label
+            # label_id = batch["label id"].to(device)
+            # label_id[label_id == 3] = 2
             id_ = batch["id"].to(device)
 
             # forward + backward + optimize
             output = model(
                 input_ids=input_input_ids,
                 attention_mask=input_attention_mask,
-                label_input_ids=label_input_ids,
+                # label_input_ids=label_input_ids,
                 label_ids=label_id,
             )  # .to(device)
             loss = output.loss
@@ -126,7 +127,7 @@ def evaluate(data_loader, model, model_name, device):
                 preds = [idx for idx in predicted_label_indices.tolist()]
 
             for i in range(len(preds)):
-                if preds[i].lower().strip() == label[i].lower().strip():
+                if preds[i] == label[i]:
                     total_accuracy += 1
 
             for i in range(len(id_)):
@@ -343,8 +344,8 @@ if __name__ == "__main__":
                 else:
                     ids = None    
                 errors = open("errors.txt", "a")
-                # try:
-                if True:
+                try:
+                # if True:
                     experiment(
                         device=device_,
                         model_name=model_,
@@ -364,7 +365,7 @@ if __name__ == "__main__":
                     os.system("git commit -m " + notif)
                     os.system("git push")
                     errors.close()
-                '''
+                
                 except Exception as e:
                     notif = (
                         f"Training of {model_} with {lr} and {i}k training data is finished with error!"
@@ -377,4 +378,4 @@ if __name__ == "__main__":
                     errors.write(notif + "\n" + str(e) + "\n")
                     errors.write("--------------------------------------------------\n")
                     errors.close()
-                '''
+                
