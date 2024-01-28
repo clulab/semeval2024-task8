@@ -10,11 +10,11 @@ def get_completion(prompt):
 
 def DollyModel(dataset):
     outputs = []
-    for i in range(len(dataset)):
-        prompt = f"""
+    for i in range(0, len(dataset), 32):
+        prompts = [f"""
         Replace [MASK] in following paragraph with one sentence that has a meaning similar to: {dataset[i]['sentence']}. The paragraph is: {dataset[i]['paragraph']}
-        """
-        response = get_completion(prompt)
-        outputs.append(response)
+        """ for i in range(i, i + 32)]
+        responses = generate_text(prompts)
+        outputs.extend(responses)
     return outputs
   
