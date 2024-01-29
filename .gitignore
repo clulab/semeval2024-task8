@@ -9,6 +9,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+codes/LLMs/ChatGPT.py
+codes/LLMs/ChatGPT2.py
+codes/LLMs/ChatGPT22.py
+codes/LLMs/Cohere.py
+codes/LLMs/Cohere2.py
+codes/LLMs/Cohere3.py
+
+
 # C extensions
 *.so
 
