@@ -16,5 +16,6 @@ def DollyModel(dataset):
         """ for i in range(i, i + 32)]
         responses = generate_text(prompts)
         outputs.extend(responses)
+        print(f"dolly {i} of {len(dataset)} done.")
     return outputs
   

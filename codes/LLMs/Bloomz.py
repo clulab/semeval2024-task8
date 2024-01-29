@@ -22,5 +22,6 @@ def BloomzModel(dataset):
         """ for data in batch]
         inputs = tokenizer.encode(prompts, return_tensors="pt")
         outputs.extend(model.generate(inputs))
+        print(f"blooms {i} of {len(dataset)} done.")
     return outputs
   
