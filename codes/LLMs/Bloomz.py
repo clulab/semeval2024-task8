@@ -17,6 +17,7 @@ def BloomzModel(dataset):
     outputs = []
     for i in range(0, len(dataset), batch_size):
         batch = dataset[i:i+batch_size]
+        print(batch)
         prompts = [f"""
         Replace [MASK] in following paragraph with one sentence that has a meaning similar to: {data['sentence']}. The paragraph is: {data['paragraph']}
         """ for data in batch]
