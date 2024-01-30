@@ -25,6 +25,7 @@ def generate_text(prompts, max_length=512):
 
 # Define a function to generate a completion for a given dataset
 def BloomzModel(dataset):
+    print(len(dataset))
     outputs = []
     batch_size = 32
 
