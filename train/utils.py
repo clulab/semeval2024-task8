@@ -63,8 +63,8 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     # read the tokenized datasets
     train = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_train.jsonl', split='train')
     val = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_dev.jsonl', split='train')
-    # test = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_test.jsonl', split='train')
-
+    test = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_test.jsonl', split='train')
+    test = test.add_column('label', [100] * len(test))
     if ids_set is not None:
         train = train.filter(lambda example: example['id'] in ids_set)
         
@@ -73,7 +73,7 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     
     train = train.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
     val = val.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
-    # test = test.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
+    test = test.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
 
 
 
@@ -92,14 +92,14 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
         num_workers=0,
         collate_fn=collateD,
     )
-    '''
+    
     test = DataLoader(
         dataset=test,
         batch_size=batch_size1,
         shuffle=True,
         num_workers=0,
-        # collate_fn=collate,
+        collate_fn=collateD,
     )
-    '''
+    
 
-    return train, val, val
+    return train, val, test

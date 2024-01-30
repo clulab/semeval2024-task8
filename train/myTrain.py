@@ -143,6 +143,38 @@ def evaluate(data_loader, model, model_name, device):
     return overall_loss, overall_accuracy, all_preds
 
 
+def getPreds(data_loader, model, model_name, device):
+    model = model.eval()
+    all_preds = {}
+    with torch.no_grad():
+        the_tqdm = tqdm(
+            enumerate(data_loader), total=len(data_loader), position=0, leave=True
+        )
+        for index, batch in the_tqdm:
+            # get the inputs
+            input_input_ids = batch["input input_ids"].to(device)
+            input_attention_mask = batch["input attention_mask"].to(device)
+            label = batch["label"].to(device)
+            label_id = label
+            id_ = batch["id"].to(device)
+
+            # forward + backward + optimize
+            output = model(
+                input_ids=input_input_ids,
+                attention_mask=input_attention_mask,
+                label_ids=label_id,
+            )  # .to(device)
+
+            if model_name == "roberta" or model_name == "deberta" or model_name == "bart":
+                predicted_label_indices = torch.argmax(output.logits, dim=1)
+                preds = [idx for idx in predicted_label_indices.tolist()]
+
+            for i in range(len(id_)):
+                all_preds[int(id_[i])] = preds[i]
+
+    return all_preds
+
+
 def experiment(
     device,
     model_name="unified",
@@ -284,8 +316,13 @@ def experiment(
     model = model.to(device)
     load_dict = torch.load(model_folder + "best_loss.pt")
     model.load_state_dict(load_dict['model_state_dict'])
+
     optimizer.load_state_dict(load_dict['optimizer_state_dict'])
     print(f"Model loaded from the best loss checkpoint.")
+    testPreds = getPreds(test_loader, model, model_name, device)
+    with open(model_folder + "testPreds.pkl", "wb") as f:
+        pickle.dump(testPreds, f)
+    
     # test_loss, test_acc, preds = evaluate(test_loader, model, model_name, device)
     training_info.write(f"Training stopped at epoch {epoch_num}.\n")
     training_info.write(f"Best Val Loss: {best_val_loss:.2f}\n")
@@ -325,8 +362,8 @@ if __name__ == "__main__":
     list_experiment_ids = []
     
     for model_ in ['deberta', 'roberta']:
-        for i in [None, 4, 2, 5, 6, 3, 1]:
-            for lr in [1e-5, 5e-5, 2e-5, 3e-5]:
+        for i in [4, 2, None, 5, 6, 3, 1]:
+            for lr in [5e-5, 1e-4, 1e-5, 2e-5, 3e-5]:
                 if i != None:
                     with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
                         ids = pickle.load(f)
