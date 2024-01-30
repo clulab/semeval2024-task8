@@ -34,7 +34,7 @@ def BloomzModel(dataset):
         # print(batch)
         prompts = [f"""
         Replace [MASK] in following paragraph with one sentence that has a meaning similar to: {batch['sentence'][m]}. The paragraph is: {batch['paragraph'][m]}
-        """ for m in range(0, len(batch))]
+        """ for m in range(0, len(batch['sentence']))]
         print(len(batch))
         # inputs = tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
         # outputs.extend(model.generate(inputs))
