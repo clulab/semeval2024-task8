@@ -43,6 +43,6 @@ def BloomzModel(dataset):
         print(len(out))
         outputs.extend(out)
         print(f"blooms {i} of {len(dataset)} done.", end='\r')
-        assert len(outputs) == i + len(batch), f"Expected {i + len(batch)} outputs, got {len(outputs)}"
+        assert len(outputs) == i + len(batch['sentence']), f"Expected {i + len(batch['sentence'])} outputs, got {len(outputs)}"
     return outputs
   
