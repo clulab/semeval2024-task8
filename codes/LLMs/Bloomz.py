@@ -17,10 +17,10 @@ def BloomzModel(dataset):
     outputs = []
     for i in range(0, len(dataset), batch_size):
         batch = dataset[i:i+batch_size]
-        print(batch)
+        # print(batch)
         prompts = [f"""
-        Replace [MASK] in following paragraph with one sentence that has a meaning similar to: {data['sentence']}. The paragraph is: {data['paragraph']}
-        """ for data in batch]
+        Replace [MASK] in following paragraph with one sentence that has a meaning similar to: {data['sentence'][m]}. The paragraph is: {data['paragraph'][m]}
+        """ for m in range(len(batch))]
         inputs = tokenizer.encode(prompts, return_tensors="pt")
         outputs.extend(model.generate(inputs))
         print(f"blooms {i} of {len(dataset)} done.")

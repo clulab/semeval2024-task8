@@ -12,8 +12,8 @@ def DollyModel(dataset):
     outputs = []
     for i in range(0, len(dataset), 32):
         prompts = [f"""
-        Replace [MASK] in following paragraph with one sentence that has a meaning similar to: {dataset[i]['sentence']}. The paragraph is: {dataset[i]['paragraph']}
-        """ for i in range(i, i + 32)]
+        Replace [MASK] in following paragraph with one sentence that has a meaning similar to: {dataset[j]['sentence']}. The paragraph is: {dataset[j]['paragraph']}
+        """ for j in range(i, i + 32)]
         responses = generate_text(prompts)
         outputs.extend(responses)
         print(f"dolly {i} of {len(dataset)} done.")

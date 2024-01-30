@@ -16,17 +16,17 @@ test = load_from_disk('../datasets/SubtaskB/test')
 
 # run bloomz
 trainOutpus = BloomzModel(train)
-train.add_column('bloomz', trainOutpus)
+train = train.add_column('bloomz', trainOutpus)
 train.save_to_disk('./datasets/SubtaskB/trainBloomz')
 
 
 devOutputs = BloomzModel(dev)
-dev.add_column('bloomz', devOutputs)
+dev = dev.add_column('bloomz', devOutputs)
 dev.save_to_disk('./datasets/SubtaskB/devBloomz')
 
 testOutputs = BloomzModel(test)
 
-test.add_column('bloomz', testOutputs)
+test = test.add_column('bloomz', testOutputs)
 test.save_to_disk('./datasets/SubtaskB/testBloomz')
 # add a column to the dataset with the outputs
 
@@ -35,7 +35,7 @@ test.save_to_disk('./datasets/SubtaskB/testBloomz')
 # load the datasets
 train = load_from_disk('../datasets/SubtaskB/train')
 trainOutpus = DollyModel(train)
-train.add_column('dolly', trainOutpus)
+train = train.add_column('dolly', trainOutpus)
 train.save_to_disk('./datasets/SubtaskB/trainDolly')
 
 
@@ -50,7 +50,7 @@ test = load_from_disk('../datasets/SubtaskB/test')
 testOutputs = DollyModel(test)
 
 # add a column to the dataset with the outputs
-test.add_column('dolly', testOutputs)
+test = test.add_column('dolly', testOutputs)
 
 # save the datasets
 test.save_to_disk('./datasets/SubtaskB/testDolly')
