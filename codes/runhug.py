@@ -2,7 +2,7 @@ import random
 random.seed(68)
 from datasets import load_from_disk
 
-from LLMs.Bloomz import BloomzModel
+# from LLMs.Bloomz import BloomzModel
 # from LLMs.ChatGPT import gptModel
 # from LLMs.Cohere import cohereModel
 from LLMs.Dolly import DollyModel
@@ -13,7 +13,7 @@ train = load_from_disk('../datasets/SubtaskB/train')
 dev = load_from_disk('../datasets/SubtaskB/dev')
 test = load_from_disk('../datasets/SubtaskB/test')
 
-
+'''
 # run bloomz
 trainOutpus = BloomzModel(train)
 train = train.add_column('bloomz', trainOutpus)
@@ -29,7 +29,7 @@ testOutputs = BloomzModel(test)
 test = test.add_column('bloomz', testOutputs)
 test.save_to_disk('./datasets/SubtaskB/testBloomz')
 # add a column to the dataset with the outputs
-
+'''
 # save the datasets
 
 # load the datasets
