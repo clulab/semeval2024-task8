@@ -1,6 +1,6 @@
 import transformers
 from transformers import AutoModelForCausalLM, AutoTokenizer
-
+import torch
 # Load the Bloomz model
 tokenizer = AutoTokenizer.from_pretrained("bigscience/bloomz-1b7")
 model = AutoModelForCausalLM.from_pretrained("bigscience/bloomz-1b7")
