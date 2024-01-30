@@ -21,7 +21,7 @@ def BloomzModel(dataset):
         prompts = [f"""
         Replace [MASK] in following paragraph with one sentence that has a meaning similar to: {batch['sentence'][m]}. The paragraph is: {batch['paragraph'][m]}
         """ for m in range(len(batch))]
-        inputs = tokenizer(prompts, return_tensors="pt")
+        inputs = tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
         outputs.extend(model.generate(inputs))
         print(f"blooms {i} of {len(dataset)} done.")
         assert len(outputs) == i + len(batch)
