@@ -27,7 +27,7 @@ def generate_text(prompts, max_length=512):
 def BloomzModel(dataset):
     print(len(dataset))
     outputs = []
-    batch_size = 32
+    batch_size = 8
 
     for i in range(0, len(dataset), batch_size):
         batch = dataset[i:i+batch_size]
