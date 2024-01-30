@@ -12,7 +12,7 @@ batch_size = 32
 
 def generate_text(prompts, max_length=512):
     # Tokenize all prompts (batch processing)
-    inputs = tokenizer(prompts, padding=True, return_tensors="pt")
+    inputs = tokenizer(prompts, padding=True, return_tensors="pt", truncation=True, max_length=512)
     inputs = inputs.to("cuda")  # Move inputs to GPU
 
     # Generate responses for each prompt
