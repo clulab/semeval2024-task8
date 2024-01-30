@@ -34,7 +34,9 @@ def BloomzModel(dataset):
         """ for m in range(len(batch))]
         # inputs = tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=512)
         # outputs.extend(model.generate(inputs))
-        outputs.extend(generate_text(prompts))
+        out = generate_text(prompts)
+        print(len(out))
+        outputs.extend(out)
         print(f"blooms {i} of {len(dataset)} done.", end='\r')
         assert len(outputs) == i + len(batch), f"Expected {i + len(batch)} outputs, got {len(outputs)}"
     return outputs
