@@ -15,7 +15,7 @@ def get_completion(prompt, model):
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
-def generate_text(prompts, max_length=50):
+def generate_text(prompts, max_length=512):
     # Load the model and tokenizer
 
     # Tokenize all prompts (batch processing)
