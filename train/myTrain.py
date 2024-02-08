@@ -36,6 +36,7 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
         enumerate(train_loader), total=len(train_loader), position=0, leave=True
     )
     for index, batch in the_tqdm:
+        sames = False
         batch_acc = 0
         # get the inputs
         input_input_ids = batch["input input_ids"].to(device)
@@ -78,13 +79,17 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
             if preds[i] == label[i]:
                 total_accuracy += 1
                 batch_acc += 1
+        # check if model is predicting the same label for all instances
+        if len(set(preds)) == 1:
+            sames = True
+
 
 
         overall_loss = total_loss / total_length
         overall_accuracy = total_accuracy / total_length * 100
         batch_acc = batch_acc / len(id_) * 100
 
-        the_tqdm.set_description(f"Loss: {loss.item():.3f}, Acc: {overall_accuracy:.2f}, Batch Acc: {batch_acc:.2f}")
+        the_tqdm.set_description(f"Loss: {loss.item():.3f}, Acc: {overall_accuracy:.2f}, Batch Acc: {batch_acc:.2f}, Same: {sames}")
 
     return overall_loss, overall_accuracy
 
