@@ -55,15 +55,19 @@ def collateD(batch):
     return return_dict
     
 
-from datasets import load_dataset
+from datasets import load_dataset, load_from_disk
 def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokenizer=None, ids_set=None):
     """
     This function prepares the dataset.
     """
     # read the tokenized datasets
-    train = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_train.jsonl', split='train')
-    val = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_dev.jsonl', split='train')
-    test = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_test.jsonl', split='train')
+    # train = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_train.jsonl', split='train')
+    # val = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_dev.jsonl', split='train')
+    # test = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_test.jsonl', split='train')
+    train = load_from_disk('../datasets/SubtaskB/train')
+    val = load_from_disk('../datasets/SubtaskB/dev')
+    test = load_from_disk('../datasets/SubtaskB/test')
+    
     test = test.add_column('label', [100] * len(test))
     if ids_set is not None:
         train = train.filter(lambda example: example['id'] in ids_set)
