@@ -404,4 +404,3 @@ if __name__ == "__main__":
                     errors.write(notif + "\n" + str(e) + "\n")
                     errors.write("--------------------------------------------------\n")
                     errors.close()
-                

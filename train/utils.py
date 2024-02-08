@@ -79,9 +79,9 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     def tokenize_function(examples):
        return tokenizer(examples["text"], truncation=True, padding="max_length", max_length=512)
     
-    train = train.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
-    val = val.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
-    test = test.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
+    train = train.map(tokenize_function, batched=True, batch_size=batch_size1)
+    val = val.map(tokenize_function, batched=True, batch_size=batch_size1)
+    test = test.map(tokenize_function, batched=True, batch_size=batch_size1)
 
 
 
