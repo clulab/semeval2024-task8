@@ -372,7 +372,7 @@ if __name__ == "__main__":
     
     for model_ in ['roberta']:
         for i in [4, 2, None, 5, 6, 3, 1]:
-            for lr in [5e-5, 1e-4, 1e-5, 2e-5, 3e-5]:
+            for lr in [1e-6, 5e-5, 1e-4, 1e-5, 2e-5, 3e-5]:
                 if i != None:
                     with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
                         ids = pickle.load(f)
