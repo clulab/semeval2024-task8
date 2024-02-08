@@ -1,6 +1,6 @@
 import random
 random.seed(68)
-from datasets import load_dataset, Dataset
+from datasets import load_from_disk
 
 # from LLMs.Bloomz import BloomzModel
 # from LLMs.ChatGPT import gptModel
@@ -9,26 +9,17 @@ from LLMs.Cohere import cohereModel
 # from LLMs.Davinci import davinciModel
 
 
-train = load_dataset('json', data_files='../datasets/SubtaskB/trainMasks.json', split='train')
-dev = load_dataset('json', data_files='../datasets/SubtaskB/devMasks.json', split='train')
-test = load_dataset('json', data_files='../datasets/SubtaskB/testMasks.json', split='train')
+train = load_from_disk('../datasets/SubtaskB/train')
+dev = load_from_disk('../datasets/SubtaskB/dev')
+test = load_from_disk('../datasets/SubtaskB/test')
 
-# dataset has features ['idx', 'paragraph', 'sentence']
-trainOutpus = cohereModel(train)
-train.add_column('cohere', trainOutpus)
-train.save_to_disk('../datasets/SubtaskB/trainCohere')
-
-
-devOutputs = cohereModel(dev)
-testOutputs = cohereModel(test)
-print('cohere done')
-# add a column to the dataset with the outputs
-dev.add_column('cohere', devOutputs)
-test.add_column('cohere', testOutputs)
-
-# save the datasets
-dev.save_to_disk('../datasets/SubtaskB/devCohere')
-test.save_to_disk('../datasets/SubtaskB/testCohere')
+trainOutputs = cohereModel(train)
+train = train.add_column('cohere', trainOutputs)
+train.save_to_disk('./datasets/SubtaskB/trainCohere')
+# 
+# devOutputs = cohereModel(dev)
+# dev = dev.add_column('cohere', devOutputs)
+# dev.save_to_disk('./datasets/SubtaskB/devCohere')
 
 '''
 # load the datasets
