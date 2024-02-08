@@ -57,7 +57,7 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
                 loss = output.loss
 
             scaler.scale(loss).backward()
-            if (index + 1) % 2 == 0:
+            if True: # (index + 1) % 2 == 0:
                 scaler.step(optimizer)
                 scaler.update()
                 optimizer.zero_grad()
