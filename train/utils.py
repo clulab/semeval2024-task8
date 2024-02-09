@@ -67,6 +67,9 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     train = load_from_disk('../datasets/SubtaskB/train')
     val = load_from_disk('../datasets/SubtaskB/dev')
     test = load_from_disk('../datasets/SubtaskB/test')
+    print(train)
+    print(val)
+    print(test)
 
     # add id column
     train = train.add_column('id', [i for i in range(len(train))])
@@ -87,6 +90,8 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     train = train.map(tokenize_function, batched=True, batch_size=batch_size1)
     val = val.map(tokenize_function, batched=True, batch_size=batch_size1)
     test = test.map(tokenize_function, batched=True, batch_size=batch_size1)
+
+    train = train[:150]
 
 
 
