@@ -318,8 +318,6 @@ def experiment(
             if (check_stopping >= patience and epoch_num >= epochs_):
                 break
             
-            if epoch_num == 1:
-                break
 
     print(f"Training stopped at epoch {epoch_num}.")
     end_time = time.time()
@@ -383,8 +381,8 @@ if __name__ == "__main__":
                 else:
                     ids = None    
                 errors = open("errors.txt", "a")
-                # try:
-                if True:
+                try:
+                # if True:
                     experiment(
                         device=device_,
                         model_name=model_,
@@ -405,7 +403,7 @@ if __name__ == "__main__":
                     os.system("git push")
                     errors.close()
                 
-                if False: # except Exception as e:
+                except Exception as e:
                     notif = (
                         f"Training of {model_} with {lr} and {i}k training data is finished with error!"
                     )
