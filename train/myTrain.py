@@ -325,21 +325,21 @@ def experiment(
     end_time = time.time()
     elapsed_time = end_time - start_time
     training_info.write(f"Training time: {elapsed_time:.2f} seconds.\n")
-    model = Model_QA_negation(device)
-    model = model.to(device)
-    load_dict = torch.load(model_folder + "best_loss.pt")
-    model.load_state_dict(load_dict['model_state_dict'])
+    # model = Model_QA_negation(device)
+    # model = model.to(device)
+    # load_dict = torch.load(model_folder + "best_loss.pt")
+    # model.load_state_dict(load_dict['model_state_dict'])
 
-    optimizer.load_state_dict(load_dict['optimizer_state_dict'])
+    # optimizer.load_state_dict(load_dict['optimizer_state_dict'])
     print(f"Model loaded from the best loss checkpoint.")
-    testPreds = getPreds(test_loader, model, model_name, device)
-    with open(model_folder + "testPreds.pkl", "wb") as f:
-        pickle.dump(testPreds, f)
+    # testPreds = getPreds(test_loader, model, model_name, device)
     
-    # test_loss, test_acc, preds = evaluate(test_loader, model, model_name, device)
+    test_loss, test_acc, preds = evaluate(test_loader, model, model_name, device)
+    with open(model_folder + "testPreds.pkl", "wb") as f:
+        pickle.dump(preds, f)
     training_info.write(f"Training stopped at epoch {epoch_num}.\n")
     training_info.write(f"Best Val Loss: {best_val_loss:.2f}\n")
-    # training_info.write(f"Test Loss: {test_loss:.2f}, Test Acc: {test_acc:.1f}\n")
+    training_info.write(f"Test Loss: {test_loss:.2f}, Test Acc: {test_acc:.1f}\n")
     training_info.close()
     # process_test_preds(preds, data_folder, model_name, setting, best=True)
     print("Training finished Successfully.")
@@ -376,7 +376,7 @@ if __name__ == "__main__":
     
     for model_ in ['roberta']:
         for lr in [1e-6, 5e-6, 1e-5]:
-            for i in [4, 2, None, 5, 6, 3, 1]:
+            for i in [1, 4, 2, None, 5, 6, 3]:
                 if i != None:
                     with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
                         ids = pickle.load(f)
