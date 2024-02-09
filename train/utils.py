@@ -91,7 +91,7 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     val = val.map(tokenize_function, batched=True, batch_size=batch_size1)
     test = test.map(tokenize_function, batched=True, batch_size=batch_size1)
 
-    train = train[:150]
+    # train = train[:150]
 
 
 
