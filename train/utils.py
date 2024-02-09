@@ -55,7 +55,7 @@ def collateD(batch):
     return return_dict
     
 
-from datasets import load_dataset
+from datasets import load_dataset, load_from_disk
 def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokenizer=None, ids_set=None):
     """
     This function prepares the dataset.
@@ -64,16 +64,24 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     train = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_train.jsonl', split='train')
     val = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_dev.jsonl', split='train')
     test = load_dataset('json', data_files='../datasets/SubtaskB/subtaskB_test.jsonl', split='train')
+    # train = load_from_disk('../datasets/SubtaskB/train')
+    # val = load_from_disk('../datasets/SubtaskB/dev')
+    # test = load_from_disk('../datasets/SubtaskB/test')
+    
     test = test.add_column('label', [100] * len(test))
+
     if ids_set is not None:
+        # print(type(ids_set))
+        # print(ids_set)
+        # print(train)
         train = train.filter(lambda example: example['id'] in ids_set)
         
     def tokenize_function(examples):
        return tokenizer(examples["text"], truncation=True, padding="max_length", max_length=512)
     
-    train = train.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
-    val = val.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
-    test = test.map(tokenize_function, batched=True, batch_size=batch_size1 * 4)
+    train = train.map(tokenize_function, batched=True, batch_size=batch_size1)
+    val = val.map(tokenize_function, batched=True, batch_size=batch_size1)
+    test = test.map(tokenize_function, batched=True, batch_size=batch_size1)
 
 
 

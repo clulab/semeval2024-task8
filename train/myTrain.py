@@ -36,6 +36,8 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
         enumerate(train_loader), total=len(train_loader), position=0, leave=True
     )
     for index, batch in the_tqdm:
+        sames = False
+        batch_acc = 0
         # get the inputs
         input_input_ids = batch["input input_ids"].to(device)
         input_attention_mask = batch["input attention_mask"].to(device)
@@ -57,7 +59,7 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
                 loss = output.loss
 
             scaler.scale(loss).backward()
-            if (index + 1) % 2 == 0:
+            if True: # (index + 1) % 2 == 0:
                 scaler.step(optimizer)
                 scaler.update()
                 optimizer.zero_grad()
@@ -76,11 +78,18 @@ def train(train_loader, model, optimizer, scaler, criterion, model_name, device)
         for i in range(len(preds)):
             if preds[i] == label[i]:
                 total_accuracy += 1
+                batch_acc += 1
+        # check if model is predicting the same label for all instances
+        if len(set(preds)) == 1:
+            sames = True
+
+
 
         overall_loss = total_loss / total_length
         overall_accuracy = total_accuracy / total_length * 100
+        batch_acc = batch_acc / len(id_) * 100
 
-        the_tqdm.set_description(f"Loss: {loss.item():.3f}, Acc: {overall_accuracy:.2f}")
+        the_tqdm.set_description(f"Loss: {loss.item():.3f}, Acc: {overall_accuracy:.2f}, Batch Acc: {batch_acc:.2f}, Same: {sames}")
 
     return overall_loss, overall_accuracy
 
@@ -268,7 +277,7 @@ def experiment(
     training_info.write(f"current time: {time.ctime()}\n")
     start_time = time.time()
 
-    if check_stopping < patience:
+    if False:# check_stopping < patience:
         while True:
             epoch_num += 1
             print(f"------------------------------------")
@@ -361,17 +370,17 @@ if __name__ == "__main__":
     # device_ = torch.device("cpu")
     list_experiment_ids = []
     
-    for model_ in ['deberta', 'roberta']:
-        for i in [4, 2, None, 5, 6, 3, 1]:
-            for lr in [5e-5, 1e-4, 1e-5, 2e-5, 3e-5]:
+    for model_ in ['roberta']:
+        for lr in [1e-6, 5e-6, 1e-5]:
+            for i in [4, 2, None, 5, 6, 3, 1]:
                 if i != None:
                     with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
                         ids = pickle.load(f)
                 else:
                     ids = None    
                 errors = open("errors.txt", "a")
-                try:
-                # if True:
+                # try:
+                if True:
                     experiment(
                         device=device_,
                         model_name=model_,
@@ -392,7 +401,7 @@ if __name__ == "__main__":
                     os.system("git push")
                     errors.close()
                 
-                except Exception as e:
+                if False: # except Exception as e:
                     notif = (
                         f"Training of {model_} with {lr} and {i}k training data is finished with error!"
                     )
@@ -404,4 +413,3 @@ if __name__ == "__main__":
                     errors.write(notif + "\n" + str(e) + "\n")
                     errors.write("--------------------------------------------------\n")
                     errors.close()
-                

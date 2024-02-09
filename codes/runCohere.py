@@ -1,6 +1,6 @@
 import random
 random.seed(68)
-from datasets import load_dataset, Dataset
+from datasets import load_from_disk
 
 # from LLMs.Bloomz import BloomzModel
 # from LLMs.ChatGPT import gptModel
@@ -9,14 +9,39 @@ from LLMs.Cohere2 import cohereModel
 # from LLMs.Davinci import davinciModel
 
 
-# train = load_dataset('json', data_files='../datasets/SubtaskB/trainMasks.json', split='train')
-# dev = load_dataset('json', data_files='../datasets/SubtaskB/devMasks.json', split='train')
-# devOutputs = cohereModel(dev)
-# dev.add_column('cohere', devOutputs)
-test = load_dataset('json', data_files='../datasets/SubtaskB/testMasks.json', split='train')
-testOutputs = cohereModel(test)
-test.add_column('cohere', testOutputs)
-test.save_to_disk('../datasets/SubtaskB/testCohere')
+# train = load_from_disk('../datasets/SubtaskB/train')
+dev = load_from_disk('../datasets/SubtaskB/dev')
+# test = load_from_disk('../datasets/SubtaskB/test')
+
+testOutputs = cohereModel(dev)
+# print(type(testOutputs))
+empty = 0
+newOutputs = []
+for elem in testOutputs:
+    if elem == "":
+        newOutputs.append(" ")
+    else:
+        newOutputs.append(elem.generations[0].text)
+    '''if type(elem) != str:
+    print(type(elem))
+    # print(elem)
+    # print(type(elem.texts))
+    print((elem.generations[0].text))
+
+    print('not string')
+    # break'''
+
+# print(empty)
+    
+dev = dev.add_column('cohere', newOutputs)
+dev.save_to_disk('./datasets/SubtaskB/devCohere')
+
+print(len(testOutputs))
+print('cohere done')
+
+
+
+
 
 '''
 

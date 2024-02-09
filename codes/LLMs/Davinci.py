@@ -1,6 +1,6 @@
 import openai
 # Set OpenAI API key
-api_key = "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"
+api_key = "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"
 openai.api_key = api_key
 
 def get_completion(prompts, model="davinci-002"):
@@ -20,7 +20,6 @@ def davinciModel(dataset):
     #     outputs = pickle.load(f)
 
     
-
     for i in range(len(dataset)):
         if i < len(outputs):
             continue
