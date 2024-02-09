@@ -277,7 +277,7 @@ def experiment(
     training_info.write(f"current time: {time.ctime()}\n")
     start_time = time.time()
 
-    if check_stopping < patience:
+    if False:# check_stopping < patience:
         while True:
             epoch_num += 1
             print(f"------------------------------------")
