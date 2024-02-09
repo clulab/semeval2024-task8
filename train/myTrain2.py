@@ -372,7 +372,7 @@ if __name__ == "__main__":
     # device_ = torch.device("cpu")
     list_experiment_ids = []
     
-    for model_ in ['deberta']:
+    for model_ in ['deberta', 'roberta']:
         for lr in [1e-6, 5e-6, 1e-5]:
             for i in [None]:
                 if i != None:
