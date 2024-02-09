@@ -73,9 +73,19 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     val = val.add_column('id', [i for i in range(len(val))])
     test = test.add_column('id', [i for i in range(len(test))])
 
-    train = train.add_column('input text', [train['paragraph'][i] + '[SEP] GPT: ' + train['gpt'][i] + '[SEP] Cohere: ' + train['cohere'][i] + '[SEP] Davinci: ' + train['davinci'][i] + '[SEP] Bloomz: ' + train['bloomz'][i] for i in range(len(train))])
-    val = val.add_column('input text', [val['paragraph'][i] + '[SEP] GPT: ' + val['gpt'][i] + '[SEP] Cohere: ' + val['cohere'][i] + '[SEP] Davinci: ' + val['davinci'][i] + '[SEP] Bloomz: ' + val['bloomz'][i] for i in range(len(val))])
-    test = test.add_column('input text', [test['paragraph'][i] + '[SEP] GPT: ' + test['gpt'][i] + '[SEP] Cohere: ' + test['cohere'][i] + '[SEP] Davinci: ' + test['davinci'][i] + '[SEP] Bloomz: ' + test['bloomz'][i] for i in range(len(test))])
+    # add input text column
+    def add_input_text(example):
+        example['input text'] = example['paragraph'] + '[SEP] GPT: ' + example['gpt'] + '[SEP] Cohere: ' + example['cohere'] + '[SEP] Davinci: ' + example['davinci'] + '[SEP] Bloomz: ' + example['bloomz']
+        return example
+    train = train.map(add_input_text)
+    val = val.map(add_input_text)
+    test = test.map(add_input_text)
+
+
+
+    # train = train.add_column('input text', [train['paragraph'][i] + '[SEP] GPT: ' + train['gpt'][i] + '[SEP] Cohere: ' + train['cohere'][i] + '[SEP] Davinci: ' + train['davinci'][i] + '[SEP] Bloomz: ' + train['bloomz'][i] for i in range(len(train))])
+    # val = val.add_column('input text', [val['paragraph'][i] + '[SEP] GPT: ' + val['gpt'][i] + '[SEP] Cohere: ' + val['cohere'][i] + '[SEP] Davinci: ' + val['davinci'][i] + '[SEP] Bloomz: ' + val['bloomz'][i] for i in range(len(val))])
+    # test = test.add_column('input text', [test['paragraph'][i] + '[SEP] GPT: ' + test['gpt'][i] + '[SEP] Cohere: ' + test['cohere'][i] + '[SEP] Davinci: ' + test['davinci'][i] + '[SEP] Bloomz: ' + test['bloomz'][i] for i in range(len(test))])
     print(train)
     
     # test = test.add_column('label', [100] * len(test))
