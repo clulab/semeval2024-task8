@@ -67,6 +67,11 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     train = load_from_disk('../datasets/SubtaskB/train')
     val = load_from_disk('../datasets/SubtaskB/dev')
     test = load_from_disk('../datasets/SubtaskB/test')
+
+    # add id column
+    train = train.add_column('id', [i for i in range(len(train))])
+    val = val.add_column('id', [i for i in range(len(val))])
+    test = test.add_column('id', [i for i in range(len(test))])
     
     # test = test.add_column('label', [100] * len(test))
 
