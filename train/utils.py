@@ -70,11 +70,11 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     
     # test = test.add_column('label', [100] * len(test))
 
-    if ids_set is not None:
+    # if ids_set is not None:
         # print(type(ids_set))
         # print(ids_set)
         # print(train)
-        train = train.filter(lambda example: example['id'] in ids_set)
+    #     train = train.filter(lambda example: example['id'] in ids_set)
         
     def tokenize_function(examples):
        return tokenizer(examples["text"], truncation=True, padding="max_length", max_length=512)
