@@ -38,7 +38,7 @@ class DeBERTa_negation(nn.Module):
         from transformers import DebertaV2ForSequenceClassification,  DebertaV2TokenizerFast
 
         self.model = DebertaV2ForSequenceClassification.from_pretrained(
-            "microsoft/deberta-v3-large", num_labels=6
+            "microsoft/deberta-v3-large", num_labels=6, max_position_embeddings=2048
         ).to(device)
         self.tokenizer = DebertaV2TokenizerFast.from_pretrained("microsoft/deberta-v3-large")
         # set the device
