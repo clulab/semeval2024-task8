@@ -277,7 +277,7 @@ def experiment(
     training_info.write(f"current time: {time.ctime()}\n")
     start_time = time.time()
 
-    if False:# check_stopping < patience:
+    if check_stopping < patience:
         while True:
             epoch_num += 1
             print(f"------------------------------------")
@@ -317,6 +317,10 @@ def experiment(
             training_info.write(f"------------------------------------\n")
             if (check_stopping >= patience and epoch_num >= epochs_):
                 break
+            
+            if epoch_num == 1:
+                break
+
     print(f"Training stopped at epoch {epoch_num}.")
     end_time = time.time()
     elapsed_time = end_time - start_time
