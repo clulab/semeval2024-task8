@@ -387,7 +387,7 @@ if __name__ == "__main__":
             setting=str(model_) + "_" + str(lr) + "_" + str(lr),
             batch_size_=8, 
             experiment_id=str(model_) + "_" + str(lr) + "_" + str(lr),            
-            learning_rate=lr,
+            learning_rate=float(lr),
             ids_set=None
         )
         notif = (
