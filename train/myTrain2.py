@@ -379,6 +379,15 @@ if __name__ == "__main__":
     # model_lr
     experiment_id = args.input
     model_, lr = experiment_id.split("_")
+    if lr == "1e-5":
+        lr = 1e-5
+    elif lr == "5e-5":
+        lr = 5e-5
+    elif lr == "1e-6":
+        lr = 1e-6
+    elif lr == "5e-6":
+        lr = 5e-6
+    
     
     try:
         experiment(
@@ -387,7 +396,7 @@ if __name__ == "__main__":
             setting=str(model_) + "_" + str(lr) + "_" + str(lr),
             batch_size_=8, 
             experiment_id=str(model_) + "_" + str(lr) + "_" + str(lr),            
-            learning_rate=float(lr),
+            learning_rate=lr, # float(lr),
             ids_set=None
         )
         notif = (
