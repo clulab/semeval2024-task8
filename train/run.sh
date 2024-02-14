@@ -26,7 +26,7 @@ for i in "${!inputs[@]}"; do
   sleep 10
 
   # Execute the script with CUDA_VISIBLE_DEVICES set for the specific GPU
-  CUDA_VISIBLE_DEVICES=$gpu_index python myTrian2.py "${inputs[$i]}" &
+  CUDA_VISIBLE_DEVICES=$gpu_index python myTrain2.py "${inputs[$i]}" &
 done
 
 # Wait for all background jobs to finish
