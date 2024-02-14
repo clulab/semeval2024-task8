@@ -74,13 +74,59 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
     test = test.add_column('id', [i for i in range(len(test))])
 
     # add input text column
-    def add_input_text(example):
-        example['input text'] = example['paragraph'] + '[SEP] GPT: ' + example['gpt'] + '[SEP] Cohere: ' + example['cohere'] + '[SEP] Davinci: ' + example['davinci'] + '[SEP] Bloomz: ' + example['bloomz']
-        return example
-    train = train.map(add_input_text)
-    val = val.map(add_input_text)
-    test = test.map(add_input_text)
+    # def add_input_text(example):
+    #     example['input text'] = example['paragraph'] + '[SEP] GPT: ' + example['gpt'] + '[SEP] Cohere: ' + example['cohere'] + '[SEP] Davinci: ' + example['davinci'] + '[SEP] Bloomz: ' + example['bloomz']
+    #     return example
+    # train = train.map(add_input_text)
+    # val = val.map(add_input_text)
+    # test = test.map(add_input_text)
 
+    def tokenize_and_combine(examples):
+        # Tokenize the paragraph with truncation and padding
+        paragraph_tokens = tokenizer(examples['paragraph'], truncation=True, max_length=512, padding="max_length", return_tensors="pt")
+        
+        # Tokenize each model output with truncation and padding
+        gpt_tokens = tokenizer(examples['gpt'], truncation=True, max_length=128, padding="max_length", return_tensors="pt")
+        cohere_tokens = tokenizer(examples['cohere'], truncation=True, max_length=128, padding="max_length", return_tensors="pt")
+        davinci_tokens = tokenizer(examples['davinci'], truncation=True, max_length=128, padding="max_length", return_tensors="pt")
+        bloomz_tokens = tokenizer(examples['bloomz'], truncation=True, max_length=128, padding="max_length", return_tensors="pt")
+        
+        # Initialize lists to store combined input_ids and attention_masks
+        combined_input_ids = []
+        combined_attention_masks = []
+        
+        # Combine the tokens and masks
+        for i in range(len(examples['paragraph'])):
+            input_ids = torch.cat([
+                paragraph_tokens['input_ids'][i],
+                gpt_tokens['input_ids'][i][1:],  # Skip the first token to avoid double padding token
+                cohere_tokens['input_ids'][i][1:],
+                davinci_tokens['input_ids'][i][1:],
+                bloomz_tokens['input_ids'][i][1:]
+            ], dim=0)
+            
+            attention_mask = torch.cat([
+                paragraph_tokens['attention_mask'][i],
+                gpt_tokens['attention_mask'][i][1:],
+                cohere_tokens['attention_mask'][i][1:],
+                davinci_tokens['attention_mask'][i][1:],
+                bloomz_tokens['attention_mask'][i][1:]
+            ], dim=0)
+            
+            # Convert to lists for compatibility with datasets
+            combined_input_ids.append(input_ids.tolist())
+            combined_attention_masks.append(attention_mask.tolist())
+        
+        # Return the combined sequences as a dictionary
+        return {
+            'input_ids': combined_input_ids,
+            'attention_mask': combined_attention_masks
+        }
+
+    # Apply the function to each split of the dataset
+    train = train.map(tokenize_and_combine, batched=True)
+    val = val.map(tokenize_and_combine, batched=True)
+    test = test.map(tokenize_and_combine, batched=True)
 
 
     # train = train.add_column('input text', [train['paragraph'][i] + '[SEP] GPT: ' + train['gpt'][i] + '[SEP] Cohere: ' + train['cohere'][i] + '[SEP] Davinci: ' + train['davinci'][i] + '[SEP] Bloomz: ' + train['bloomz'][i] for i in range(len(train))])

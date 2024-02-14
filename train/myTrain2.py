@@ -366,51 +366,51 @@ def test_mapper(example, preds):
     return_dict["correct"] = 1 if str(example["label"]).strip().lower() == str(preds[example["id"]]).strip().lower() else 0
     return return_dict
 
-
+from argparse import ArgumentParser
 if __name__ == "__main__":
     device_ = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    # device_ = torch.device("cpu")
-    list_experiment_ids = []
+    parser = ArgumentParser(description="Process some inputs.")
+    # Add an argument
+    parser.add_argument('input', type=str, help='An input to process')
+
+    # Parse the arguments
+    args = parser.parse_args()
+
+    # model_lr
+    experiment_id = args.input
+    model_, lr = experiment_id.split("_")
     
-    for model_ in ['deberta']:
-        for lr in [1e-6, 5e-6, 1e-5]:
-            for i in [None]:
-                if i != None:
-                    with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
-                        ids = pickle.load(f)
-                else:
-                    ids = None    
-                errors = open("errors.txt", "a")
-                if True: # try:
-                    experiment(
-                        device=device_,
-                        model_name=model_,
-                        setting=str(model_) + "_" + str(lr) + "_" + str(lr) + "_" + str(i),
-                        batch_size_=8, 
-                        experiment_id=str(model_) + "_" + str(lr) + "_" + str(lr) + "_" + str(i),
-                        learning_rate=lr,
-                        ids_set=ids
-                    )
-                    notif = (
-                        f"Training of {model_} with {lr} and {i}k training data is finished!"
-                    )
-                    requests.post(
-                        "https://ntfy.sh/mhrnlpmodels", data=notif.encode(encoding="utf-8")
-                    )
-                    os.system("git add .")
-                    os.system("git commit -m " + notif)
-                    os.system("git push")
-                    errors.close()
-                
-                if False: # except Exception as e:
-                    notif = (
-                        f"Training of {model_} with {lr} and {i}k training data is finished with error!"
-                    )
-                    requests.post(
-                        "https://ntfy.sh/mhrnlpmodels",
-                        data=notif.encode(encoding="utf-8"),
-                        headers={"Priority": "5"},
-                    )
-                    errors.write(notif + "\n" + str(e) + "\n")
-                    errors.write("--------------------------------------------------\n")
-                    errors.close()
+    try:
+        experiment(
+            device=device_,
+            model_name=model_,
+            setting=str(model_) + "_" + str(lr) + "_" + str(lr),
+            batch_size_=8, 
+            experiment_id=str(model_) + "_" + str(lr) + "_" + str(lr),            
+            learning_rate=lr,
+            ids_set=None
+        )
+        notif = (
+            f"Training of {model_} with {lr} training data is finished!"
+        )
+        requests.post(
+            "https://ntfy.sh/mhrnlpmodels", data=notif.encode(encoding="utf-8")
+        )
+
+        os.system("git add .")
+        os.system("git commit -m " + notif)
+        os.system("git push")
+
+    except Exception as e:
+        errors = open("errors.txt", "a")
+        notif = (
+            f"Training of {model_} with {lr} training data is finished with error {e}!"
+        )
+        requests.post(
+            "https://ntfy.sh/mhrnlpmodels",
+            data=notif.encode(encoding="utf-8"),
+            headers={"Priority": "5"},
+        )
+        errors.write(notif + "\n" + str(e) + "\n")
+        errors.write("--------------------------------------------------\n")
+        errors.close()
