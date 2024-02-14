@@ -1,0 +1,80 @@
+Training of deberta with 1e-6 training data is finished with error 
+DebertaV2Converter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+!
+
+DebertaV2Converter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+
+--------------------------------------------------
+Training of deberta with 1e-5 training data is finished with error 
+DebertaV2Converter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+!
+
+DebertaV2Converter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+
+--------------------------------------------------
+Training of deberta with 5e-5 training data is finished with error 
+DebertaV2Converter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+!
+
+DebertaV2Converter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+
+--------------------------------------------------
+Training of deberta with 5e-6 training data is finished with error 
+DebertaV2Converter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+!
+
+DebertaV2Converter requires the protobuf library but it was not found in your environment. Checkout the instructions on the
+installation page of its repo: https://github.com/protocolbuffers/protobuf/tree/master/python#installation and follow the ones
+that match your environment. Please note that you may need to restart your runtime after installation.
+
+--------------------------------------------------
+Training of deberta with 5e-6 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 5e-5 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 1e-6 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 1e-5 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 5e-5 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 5e-6 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 1e-5 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 1e-6 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 5e-6 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 5e-5 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 1e-5 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
+Training of deberta with 1e-6 training data is finished with error '<=' not supported between instances of 'float' and 'str'!
+'<=' not supported between instances of 'float' and 'str'
+--------------------------------------------------
