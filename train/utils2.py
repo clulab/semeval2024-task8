@@ -142,12 +142,12 @@ def prepare_dataset(model_name: str, setting: str, batch_size1: int = 16, tokeni
         # print(train)
     #     train = train.filter(lambda example: example['id'] in ids_set)
         
-    def tokenize_function(examples):
-       return tokenizer(examples["input text"], truncation=True, padding="max_length", max_length=1024)
-    
-    train = train.map(tokenize_function, batched=True, batch_size=batch_size1)
-    val = val.map(tokenize_function, batched=True, batch_size=batch_size1)
-    test = test.map(tokenize_function, batched=True, batch_size=batch_size1)
+    # def tokenize_function(examples):
+    #    return tokenizer(examples["input text"], truncation=True, padding="max_length", max_length=1024)
+    # 
+    # train = train.map(tokenize_function, batched=True, batch_size=batch_size1)
+    # val = val.map(tokenize_function, batched=True, batch_size=batch_size1)
+    # test = test.map(tokenize_function, batched=True, batch_size=batch_size1)
 
 
 
