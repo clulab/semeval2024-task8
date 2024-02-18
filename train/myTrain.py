@@ -373,7 +373,7 @@ if __name__ == "__main__":
     list_experiment_ids = []
     
     for model_ in ['roberta']:
-        for lr in [1e-6, 5e-6, 1e-5]:
+        for lr in [1e-7]: # [1e-6, 5e-6, 1e-5]:
             for i in [None]:
                 if i != None:
                     with open('./trainIDs' + str(i) + '.pkl', 'rb') as f:
