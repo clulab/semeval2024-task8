@@ -387,6 +387,12 @@ if __name__ == "__main__":
         lr = 1e-6
     elif lr == "5e-6":
         lr = 5e-6
+    elif lr == "1e-4":
+        lr = 1e-4
+    elif lr == "5e-7":
+        lr = 5e-7
+    elif lr == "1e-7":
+        lr = 1e-7
     
     
     try:
