@@ -395,7 +395,8 @@ if __name__ == "__main__":
         lr = 1e-7
     
     
-    try:
+    # try:
+    if True:
         experiment(
             device=device_,
             model_name=model_,
@@ -415,7 +416,7 @@ if __name__ == "__main__":
         os.system("git add .")
         os.system("git commit -m " + notif)
         os.system("git push")
-
+    '''
     except Exception as e:
         errors = open("errors.txt", "a")
         notif = (
@@ -429,3 +430,4 @@ if __name__ == "__main__":
         errors.write(notif + "\n" + str(e) + "\n")
         errors.write("--------------------------------------------------\n")
         errors.close()
+    '''
