@@ -11,7 +11,7 @@ class RoBERTa_negation(nn.Module):
         from transformers import RobertaForSequenceClassification, RobertaTokenizerFast
 
         self.model = RobertaForSequenceClassification.from_pretrained(
-            "roberta-large", num_labels=6
+            "roberta-large", num_labels=6, max_position_embeddings=1024
         ).to(device)
         self.tokenizer = RobertaTokenizerFast.from_pretrained("roberta-large")
         # set the device
