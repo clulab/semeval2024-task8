@@ -273,10 +273,11 @@ def experiment(
         f"patience: {patience}\n"
         f"------------------------------------\n"
     )
-
+    
     training_info.write(f"current time: {time.ctime()}\n")
+    
     start_time = time.time()
-
+    
     if check_stopping < patience:
         while True:
             epoch_num += 1
@@ -315,18 +316,18 @@ def experiment(
                 check_stopping += 1
 
             training_info.write(f"------------------------------------\n")
-            if (check_stopping >= patience and epoch_num >= epochs_):
+            if (check_stopping >= patience):
                 break
             
-
+    
     print(f"Training stopped at epoch {epoch_num}.")
     end_time = time.time()
     elapsed_time = end_time - start_time
     training_info.write(f"Training time: {elapsed_time:.2f} seconds.\n")
-    # model = Model_QA_negation(device)
-    # model = model.to(device)
-    # load_dict = torch.load(model_folder + "best_loss.pt")
-    # model.load_state_dict(load_dict['model_state_dict'])
+    model = Model_QA_negation(device)
+    model = model.to(device)
+    load_dict = torch.load(model_folder + "best_loss.pt")
+    model.load_state_dict(load_dict['model_state_dict'])
 
     # optimizer.load_state_dict(load_dict['optimizer_state_dict'])
     print(f"Model loaded from the best loss checkpoint.")
@@ -372,7 +373,7 @@ if __name__ == "__main__":
     # device_ = torch.device("cpu")
     list_experiment_ids = []
     
-    for model_ in ['roberta']:
+    for model_ in ['deberta']:
         for lr in [1e-6]: # [1e-6, 5e-6, 1e-5]:
             for i in [None]:
                 if i != None:
