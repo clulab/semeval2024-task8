@@ -111,3 +111,10 @@ Training of deberta with 1e-7 training data is finished with error '<=' not supp
 Training of roberta with 1e-06 and Nonek training data is finished with error!
 name 'start_time' is not defined
 --------------------------------------------------
+Training of roberta with 5e-07 training data is finished with error Error(s) in loading state_dict for RobertaForSequenceClassification:
+	size mismatch for roberta.embeddings.position_embeddings.weight: copying a param with shape torch.Size([514, 1024]) from checkpoint, the shape in current model is torch.Size([1024, 1024]).
+	You may consider adding `ignore_mismatched_sizes=True` in the model `from_pretrained` method.!
+Error(s) in loading state_dict for RobertaForSequenceClassification:
+	size mismatch for roberta.embeddings.position_embeddings.weight: copying a param with shape torch.Size([514, 1024]) from checkpoint, the shape in current model is torch.Size([1024, 1024]).
+	You may consider adding `ignore_mismatched_sizes=True` in the model `from_pretrained` method.
+--------------------------------------------------
